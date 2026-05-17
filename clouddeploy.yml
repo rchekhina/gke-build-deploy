@@ -2,15 +2,27 @@ apiVersion: deploy.cloud.google.com/v1
 kind: DeliveryPipeline
 metadata:
   name: mi-pipeline-gke
-description: "Pipeline de entrega continua para GKE"
+description: "Pipeline multi-clúster para Dev y Prod"
 serialPipeline:
   stages:
-  - targetId: target-produccion
+  - targetId: target-dev
+  - targetId: target-prod
 ---
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: target-produccion
-description: "Entorno de Producción GKE"
+  name: target-dev
+description: "Clúster de Desarrollo"
 gke:
-  cluster: projects/gke-lb-multi-backend/locations/us-central1-a/clusters/mi-cluster-gke-standard
+  # Apunta al clúster de desarrollo
+  cluster: projects/gke-lb-multi-backend/locations/us-central1-a/clusters/mi-cluster-gke-dev
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: target-prod
+description: "Clúster de Producción"
+requireApproval: true # Requiere validación humana antes de saltar a producción
+gke:
+  # Apunta al NUEVO clúster de producción
+  cluster: projects/gke-lb-multi-backend/locations/us-central1-a/clusters/mi-cluster-gke-prod
