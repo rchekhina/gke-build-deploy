@@ -1,0 +1,16 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: mi-pipeline-gke
+description: "Pipeline de entrega continua para GKE"
+serialPipeline:
+  stages:
+  - targetId: target-produccion
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: target-produccion
+description: "Entorno de Producción GKE"
+gke:
+  cluster: projects/gke-lb-multi-backend/locations/us-central1-a/clusters/mi-cluster-gke-standard
