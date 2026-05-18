@@ -14,7 +14,6 @@ metadata:
   name: target-dev
 description: "Clúster de Desarrollo"
 gke:
-  # Apunta al clúster de desarrollo
   cluster: projects/gke-lb-multi-backend/locations/us-central1-a/clusters/mi-cluster-gke-dev
 ---
 apiVersion: deploy.cloud.google.com/v1
@@ -22,7 +21,6 @@ kind: Target
 metadata:
   name: target-prod
 description: "Clúster de Producción"
-requireApproval: true # Requiere validación humana antes de saltar a producción
+requireApproval: true
 gke:
-  # Apunta al NUEVO clúster de producción
   cluster: projects/gke-lb-multi-backend/locations/us-central1-a/clusters/mi-cluster-gke-prod
