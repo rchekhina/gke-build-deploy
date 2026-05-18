@@ -24,6 +24,7 @@ steps:
       - 'release-$SHORT_SHA'
       - '--delivery-pipeline=mi-pipeline-gke'
       - '--region=us-central1'
+      - '--skaffold-file=skaffold.yml' # 🚀 NUEVA LÍNEA: Vincula explícitamente tu configuración de Skaffold
       - '--images=SET_IMAGE=us-central1-docker.pkg.dev/$PROJECT_ID/mi-repo-docker/mi-app:$SHORT_SHA'
 
 # Redirige los logs directamente a Cloud Logging para permitir el uso de una Service Account personalizada
