@@ -1,5 +1,5 @@
 steps:
-  # 1. Crear el Release global activando el perfil de producción
+  # 1. Crear el Release global en Cloud Deploy
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
@@ -10,7 +10,6 @@ steps:
       - '--delivery-pipeline=mi-pipeline-gke'
       - '--region=us-central1'
       - '--skaffold-file=skaffold.yml'
-      - '--skaffold-profile=produccion' # 🚀 Activa el perfil de producción en Skaffold
 
 options:
   logging: CLOUD_LOGGING_ONLY

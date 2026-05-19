@@ -1,5 +1,5 @@
 steps:
-  # 1. Crear el Release en Cloud Deploy activando el perfil de desarrollo
+  # 1. Crear el Release en Cloud Deploy para Desarrollo
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
@@ -11,7 +11,6 @@ steps:
       - '--region=us-central1'
       - '--skaffold-file=skaffold.yml'
       - '--to-target=target-dev'
-      - '--skaffold-profile=desarrollo' # 🚀 Activa el perfil de desarrollo en Skaffold
 
 options:
   logging: CLOUD_LOGGING_ONLY
