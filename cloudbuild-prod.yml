@@ -10,7 +10,7 @@ steps:
       - '--delivery-pipeline=mi-pipeline-gke'
       - '--region=us-central1'
       - '--skaffold-file=skaffold.yml'
-      - '--config-changes=profiles=produccion' # 🚀 Activa el perfil de producción en Skaffold
+      - '--skaffold-profile=produccion' # 🚀 Activa el perfil de producción en Skaffold
 
 options:
   logging: CLOUD_LOGGING_ONLY

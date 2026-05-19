@@ -11,7 +11,7 @@ steps:
       - '--region=us-central1'
       - '--skaffold-file=skaffold.yml'
       - '--to-target=target-dev'
-      - '--config-changes=profiles=desarrollo' # 🚀 Activa el perfil de desarrollo en Skaffold
+      - '--skaffold-profile=desarrollo' # 🚀 Activa el perfil de desarrollo en Skaffold
 
 options:
   logging: CLOUD_LOGGING_ONLY
