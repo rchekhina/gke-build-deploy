@@ -6,7 +6,7 @@ metadata:
 # Configuración base por defecto
 build:
   artifacts:
-    - image: mi-app
+    - image: mi-app # mismo valor que en el deploy k8s
       context: .
       docker:
         dockerfile: Dockerfile
