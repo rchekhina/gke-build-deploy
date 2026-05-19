@@ -3,7 +3,7 @@ kind: Config
 metadata:
   name: mi-app-gke
 
-# Configuración base por defecto
+# 1. Configuración base por defecto
 build:
   artifacts:
     - image: mi-app
@@ -16,13 +16,12 @@ manifests:
 deploy:
   kubectl: {}
 
----
-# 🛠️ ACTIVACIÓN AUTOMÁTICA DE PERFILES POR ENTORNO
+# 2. Perfiles integrados (Eliminamos el '---' para evitar el error de parsing)
 profiles:
   # Se activa solo cuando Cloud Deploy va hacia Desarrollo
   - name: desarrollo
     activation:
-      - env: CLOUD_DEPLOY_TARGET=target-dev # 🚀 Auto-activación nativa de GCP
+      - env: CLOUD_DEPLOY_TARGET=target-dev
     build:
       artifacts:
         - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-dev/mi-app
@@ -31,7 +30,7 @@ profiles:
   # Se activa solo cuando Cloud Deploy va hacia Producción
   - name: produccion
     activation:
-      - env: CLOUD_DEPLOY_TARGET=target-prod # 🚀 Auto-activación nativa de GCP
+      - env: CLOUD_DEPLOY_TARGET=target-prod
     build:
       artifacts:
         - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-prod/mi-app
