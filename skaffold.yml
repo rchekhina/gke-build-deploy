@@ -1,7 +1,35 @@
 apiVersion: skaffold/v4beta7
 kind: Config
+metadata:
+  name: mi-app-gke
+
+# Configuración base por defecto
+build:
+  artifacts:
+    - image: mi-app
+      context: .
+      docker:
+        dockerfile: Dockerfile
 manifests:
   rawYaml:
-  - kubernetes.yml
+    - kubernetes.yml
 deploy:
   kubectl: {}
+
+---
+# 🛠️ PERFILES DE ENTORNO
+profiles:
+  # Perfil para Desarrollo
+  - name: desarrollo
+    build:
+      artifacts:
+        - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-dev/mi-app
+          context: .
+
+  # Perfil para Producción
+  - name: produccion
+    build:
+      artifacts:
+        - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-prod/mi-app
+          context: .
+
