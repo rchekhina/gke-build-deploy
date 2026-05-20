@@ -28,7 +28,7 @@ steps:
           --skaffold-file=skaffold.yml \
           --to-target=target-dev \
           --source=. \
-          --images="mi-app=us-central1-docker.pkg.dev/$PROJECT_ID/mi-repo-docker/mi-app:$SHORT_SHA"
+          --images="mi-app=us-central1-docker.pkg.dev/$PROJECT_ID/mi-repo-docker-dev/mi-app:$SHORT_SHA"
 
 options:
   logging: CLOUD_LOGGING_ONLY
