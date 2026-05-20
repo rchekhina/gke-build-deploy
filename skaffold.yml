@@ -2,36 +2,8 @@ apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: mi-app-gke
-
-# 1. Configuración base (Debe coincidir EXACTAMENTE con el valor de kubernetes.yaml)
-build:
-  artifacts:
-    - image: mi-app
-      context: .
-      docker:
-        dockerfile: Dockerfile
 manifests:
   rawYaml:
-    - kubernetes.yml
+    - kubernetes.yml # 👈 Asegúrate de si tu archivo es .yaml o .yml
 deploy:
   kubectl: {}
-
-# 2. Perfiles para conmutar de repositorio según el entorno
-profiles:
-  # Para desarrollo se queda igual que la base
-  - name: desarrollo
-    activation:
-      - env: CLOUD_DEPLOY_TARGET=target-dev
-    build:
-      artifacts:
-        - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-dev/mi-app
-          context: .
-
-  # Para producción, Skaffold interceptará la URL anterior y la cambiará por esta otra de forma dinámica
-  - name: produccion
-    activation:
-      - env: CLOUD_DEPLOY_TARGET=target-prod
-    build:
-      artifacts:
-        - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-prod/mi-app
-          context: .
