@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app-container
-        image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker/mi-app # 👈 Skaffold cambiará esto por la URL completa del perfil activo + el tag único
+        image: mi-app # 👈 Skaffold cambiará esto por la URL completa del perfil activo + el tag único
         ports:
         - containerPort: 80
         resources:

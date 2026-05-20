@@ -6,13 +6,13 @@ metadata:
 # 1. Configuración base (Debe coincidir EXACTAMENTE con el valor de kubernetes.yaml)
 build:
   artifacts:
-    - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker/mi-app
+    - image: mi-app
       context: .
       docker:
         dockerfile: Dockerfile
 manifests:
   rawYaml:
-    - kubernetes.yaml
+    - kubernetes.yml
 deploy:
   kubectl: {}
 
