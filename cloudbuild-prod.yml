@@ -26,6 +26,7 @@ steps:
           --delivery-pipeline=mi-pipeline-gke \
           --region=us-central1 \
           --skaffold-file=skaffold.yml \
+          --to-target=target-prod \
           --source=. \
           --images="mi-app=us-central1-docker.pkg.dev/$PROJECT_ID/mi-repo-docker-prod/mi-app:$SHORT_SHA"
 
