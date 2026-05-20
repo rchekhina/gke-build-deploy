@@ -1,5 +1,5 @@
 steps:
-  # 1. Crear el Release global en Cloud Deploy (Forzando minúsculas)
+  # 1. Crear el Release global en Cloud Deploy forzando a Skaffold a compilar y subir la imagen
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
@@ -10,7 +10,9 @@ steps:
         gcloud deploy releases create "rel-prod-$SHORT_SHA-$${LOW_BUILD_ID:0:8}" \
           --delivery-pipeline=mi-pipeline-gke \
           --region=us-central1 \
-          --skaffold-file=skaffold.yml
+          --skaffold-file=skaffold.yml \
+          --source=. \
+          --build-artifacts=artifacts.json # 🚀 CLAVE: Le dice a Cloud Deploy que use Skaffold para compilar y hacer push
 
 options:
   logging: CLOUD_LOGGING_ONLY

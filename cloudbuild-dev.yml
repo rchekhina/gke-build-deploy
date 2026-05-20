@@ -1,18 +1,19 @@
 steps:
-  # 1. Crear el Release en Cloud Deploy para Desarrollo (Forzando minúsculas)
+  # 1. Crear el Release en Cloud Deploy forzando a Skaffold a compilar y subir la imagen
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        # Convertimos el BUILD_ID a minúsculas usando bash nativo para evitar fallos de ID de recurso
         LOW_BUILD_ID=$(echo "$BUILD_ID" | tr '[:upper:]' '[:lower:]')
         
         gcloud deploy releases create "rel-dev-$SHORT_SHA-$${LOW_BUILD_ID:0:8}" \
           --delivery-pipeline=mi-pipeline-gke \
           --region=us-central1 \
           --skaffold-file=skaffold.yml \
-          --to-target=target-dev
+          --to-target=target-dev \
+          --source=. \
+          --build-artifacts=artifacts.json # 🚀 CLAVE: Le dice a Cloud Deploy que use Skaffold para compilar y hacer push
 
 options:
   logging: CLOUD_LOGGING_ONLY
