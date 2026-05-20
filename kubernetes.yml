@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mi-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mi-app
@@ -21,10 +21,10 @@ spec:
         - containerPort: 80
         resources:
           limits:
-            cpu: "500m"
+            cpu: "200m"
             memory: "512Mi"
           requests:
-            cpu: "200m"
+            cpu: "100m"
             memory: "256Mi"
 ---
 apiVersion: v1

@@ -2,37 +2,8 @@ apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: mi-app-gke
-
-# Configuración base por defecto
-build:
-  artifacts:
-    - image: mi-app # mismo valor que en el deploy k8s
-      context: .
-      docker:
-        dockerfile: Dockerfile
 manifests:
   rawYaml:
-    - kubernetes.yml
+    - kubernetes.yml # 👈 Asegúrate de si tu archivo es .yaml o .yml
 deploy:
   kubectl: {}
-
----
-# 🛠️ ACTIVACIÓN AUTOMÁTICA DE PERFILES POR ENTORNO
-profiles:
-  # Se activa solo cuando Cloud Deploy va hacia Desarrollo
-  - name: desarrollo
-    activation:
-      - env: CLOUD_DEPLOY_TARGET=target-dev # 🚀 Auto-activación nativa de GCP
-    build:
-      artifacts:
-        - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-dev/mi-app
-          context: .
-
-  # Se activa solo cuando Cloud Deploy va hacia Producción
-  - name: produccion
-    activation:
-      - env: CLOUD_DEPLOY_TARGET=target-prod # 🚀 Auto-activación nativa de GCP
-    build:
-      artifacts:
-        - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-prod/mi-app
-          context: .
