@@ -3,22 +3,22 @@ kind: Config
 metadata:
   name: mi-app-gke
 
-# 1. Configuración base por defecto
+# 1. Configuración base (Debe coincidir EXACTAMENTE con el valor de kubernetes.yaml)
 build:
   artifacts:
-    - image: mi-app
+    - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker/mi-app
       context: .
       docker:
         dockerfile: Dockerfile
 manifests:
   rawYaml:
-    - kubernetes.yml
+    - kubernetes.yaml
 deploy:
   kubectl: {}
 
-# 2. Perfiles integrados (Eliminamos el '---' para evitar el error de parsing)
+# 2. Perfiles para conmutar de repositorio según el entorno
 profiles:
-  # Se activa solo cuando Cloud Deploy va hacia Desarrollo
+  # Para desarrollo se queda igual que la base
   - name: desarrollo
     activation:
       - env: CLOUD_DEPLOY_TARGET=target-dev
@@ -27,7 +27,7 @@ profiles:
         - image: us-central1-docker.pkg.dev/gke-lb-multi-backend/mi-repo-docker-dev/mi-app
           context: .
 
-  # Se activa solo cuando Cloud Deploy va hacia Producción
+  # Para producción, Skaffold interceptará la URL anterior y la cambiará por esta otra de forma dinámica
   - name: produccion
     activation:
       - env: CLOUD_DEPLOY_TARGET=target-prod
